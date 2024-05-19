@@ -1,81 +1,93 @@
-import React, { useEffect, useState } from 'react';
-import mockData from '../../data/mockjobs';
-import Dashboard from '../dashboard/page';
-import Sankey from '../analytics/sankey';
+import React, { useEffect, useState } from "react";
+import mockData from "../../data/mockjobs";
+import Dashboard from "../dashboard/page";
+import Sankey from "../analytics/sankey";
 
 function HomePage() {
-    const [goodStuff, setGoodStuff] = useState([]);
-    const [badStuff, setBadStuff] = useState([]);
-    const [awaiting, setAwaiting] = useState([]);
-    const [ghostedJobs, setGhostedJobs] = useState([]);
-    const [dataCount, setDataCount] = useState([0, 0, 0]);
-    const [user, setUser] = useState('John Doe');
+  const [goodStuff, setGoodStuff] = useState([]);
+  const [badStuff, setBadStuff] = useState([]);
+  const [awaiting, setAwaiting] = useState([]);
+  const [ghostedJobs, setGhostedJobs] = useState([]);
+  const [dataCount, setDataCount] = useState([0, 0, 0]);
+  const [user, setUser] = useState("calebwu");
 
-    // goodstuff: offer (4)
-    // badstuff: ghosted (calculated on frontend), rejected (2)
-    // awaiting: interviewing (3), received (1), waitlisted (5)
+  // goodstuff: offer (4)
+  // badstuff: ghosted (calculated on frontend), rejected (2)
+  // awaiting: interviewing (3), received (1), waitlisted (5)
 
-    const fetchData = () => {
-        // filtering fetched data into three main columns
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/emails?username=${user}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      }
+      const data = await response.json();
+      console.log(data);
 
-        const tempGood = mockData.filter(job => job.status === 4)
-        setGoodStuff(tempGood);
-        let tempAwait = mockData.filter(job => job.status === 1 || job.status === 3 || job.status === 5)
-        setAwaiting(tempAwait);
+      // filtering fetched data into three main columns
+      const tempGood = data.filter((job) => job.status === 4);
+      setGoodStuff(tempGood);
+      let tempAwait = data.filter(
+        (job) => job.status === 1 || job.status === 3 || job.status === 5
+      );
+      setAwaiting(tempAwait);
 
-        const currentDate = new Date();
-        const tempGhosted = mockData.filter(job => {
-            const jobDate = new Date(job.date);
-            const diffTime = jobDate.getTime() - currentDate.getTime();
-            const diffDays = Math.abs(Math.round(diffTime / (1000 * 3600 * 24)));
-            console.log("Job ", job.id, ": ", diffDays);
-            return diffDays > 21;
-        });
-        setGhostedJobs(tempGhosted);
-        tempAwait = tempAwait.filter(job => tempGhosted.includes(job) === false);
-        setAwaiting(tempAwait);
-        const tempBad = mockData.filter(job => job.status === 2).concat(tempGhosted)
-        setBadStuff(tempBad);
+      const currentDate = new Date();
+      const tempGhosted = data.filter((job) => {
+        const jobDate = new Date(job.date);
+        const diffTime = jobDate.getTime() - currentDate.getTime();
+        const diffDays = Math.abs(Math.round(diffTime / (1000 * 3600 * 24)));
+        console.log("Job ", job.id, ": ", diffDays);
+        return diffDays > 21;
+      });
+      setGhostedJobs(tempGhosted);
+      tempAwait = tempAwait.filter((job) => tempGhosted.includes(job) === false);
+      setAwaiting(tempAwait);
+      const tempBad = data.filter((job) => job.status === 2).concat(tempGhosted);
+      setBadStuff(tempBad);
+    } catch (error) {
+      console.error(error);
     }
+  };
 
-    // 1. job application confirmation
-    // 2. job application rejection
-    // 3. interview invitation
-    // 4. position offered
-    // 5. position waitlisted
-    const countData = (data) => {
-        const reject = data.filter(job => job.status === 2).length;
-        const interview = data.filter(job => job.status === 3).length;
-        const offer = data.filter(job => job.status === 4).length;
-        const waitlist = data.filter(job => job.status === 5).length;
-        const ghosted = ghostedJobs.length;
-        
-        return [reject, interview, offer, waitlist, ghosted];
-    }
+  // 1. job application confirmation
+  // 2. job application rejection
+  // 3. interview invitation
+  // 4. position offered
+  // 5. position waitlisted
+  const countData = (data) => {
+    const reject = data.filter((job) => job.status === 2).length;
+    const interview = data.filter((job) => job.status === 3).length;
+    const offer = data.filter((job) => job.status === 4).length;
+    const waitlist = data.filter((job) => job.status === 5).length;
+    const ghosted = ghostedJobs.length;
 
-    useEffect(() => {
-        // TO DO: implement data fetching from b/e
-        fetchData();
-        const tempCount = countData(mockData);
-        setDataCount(tempCount);
-    }, []);
+    return [reject, interview, offer, waitlist, ghosted];
+  };
 
-    // useEffect(() => {
-    //     console.log('Good Stuff:', goodStuff);
-    //     console.log('Bad Stuff:', badStuff);
-    //     console.log('Awaiting:', awaiting);
-    //     console.log('Ghosted Jobs:', ghostedJobs);
-    // }, [goodStuff, badStuff, awaiting]);
+  useEffect(() => {
+    // TO DO: implement data fetching from b/e
+    fetchData();
+    const tempCount = countData(mockData);
+    setDataCount(tempCount);
+  }, []);
 
-    return (
-        <>
-            <div className="my-8">
-                <h1 className="text-2xl font-bold text-center">Welcome, {user}!</h1>
-            </div>
-            <Dashboard goodStuff={goodStuff} badStuff={badStuff} awaiting={awaiting} />
-            <Sankey dataCount={dataCount}/>
-        </>
-    );
-};
+  // useEffect(() => {
+  //     console.log('Good Stuff:', goodStuff);
+  //     console.log('Bad Stuff:', badStuff);
+  //     console.log('Awaiting:', awaiting);
+  //     console.log('Ghosted Jobs:', ghostedJobs);
+  // }, [goodStuff, badStuff, awaiting]);
+
+  return (
+    <>
+      <div className="my-8">
+        <h1 className="text-2xl font-bold text-center">Welcome, {user}!</h1>
+      </div>
+      <Dashboard goodStuff={goodStuff} badStuff={badStuff} awaiting={awaiting} />
+      <Sankey dataCount={dataCount} />
+    </>
+  );
+}
 
 export default HomePage;

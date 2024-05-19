@@ -67,6 +67,7 @@ def get_emails():
     fe_res = []
     for db in res:
         fe_res.append(convert_db_to_fe(db))
+    print(fe_res)
     return jsonify(fe_res)
 
 
@@ -83,3 +84,4 @@ def convert_db_to_fe(db_json):
 
 if __name__ == "__main__":
     app.run(port=5000)
+b
