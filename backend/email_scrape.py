@@ -6,6 +6,7 @@ import os
 from googleapiclient.errors import HttpError
 from pymongo import MongoClient
 import base64
+import pickle
 
 load_dotenv()
 
@@ -17,10 +18,27 @@ MONGO_DB_URL = os.getenv("MONGO_DB_URL")
 mongoClient = MongoClient(MONGO_DB_URL)
 db = mongoClient.get_database("kelvinwong")
 
-flow = InstalledAppFlow.from_client_secrets_file(
-    "backend/client_secret.json", scopes=SCOPES
-)
-creds = flow.run_local_server()
+
+def get_credentials():
+    creds = None
+    # The file token.pickle stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first time.
+    if os.path.exists("token.pickle"):
+        with open("token.pickle", "rb") as token:
+            creds = pickle.load(token)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        flow = InstalledAppFlow.from_client_secrets_file(
+            "backend/client_secret.json", SCOPES
+        )
+        creds = flow.run_local_server(port=8080)
+        # Save the credentials for the next run
+        with open("token.pickle", "wb") as token:
+            pickle.dump(creds, token)
+    return creds
+
+
+creds = get_credentials()
 
 service = build("gmail", "v1", credentials=creds)
 
@@ -41,15 +59,20 @@ def is_new_email(email_id: str):
         return False
 
 
-def fetch_new_emails(username: str):
+def fetch_emails():
     emails = get_emails_from_google()
-    res = []
+    all_emails, new_emails = [], []
 
     for email in emails:
         message_id = email["id"]
-        if not is_new_email(message_id):
+        # if message_id already in database then skip
+        if db.get_collection("emails").find_one({"email_id": message_id}):
+            all_emails.append(
+                db.get_collection("emails").find_one({"email_id": message_id})
+            )
             continue
-        # continue only if email is new
+
+        # if email not in database (new)
         email = service.users().messages().get(userId="me", id=message_id).execute()
         payload = email["payload"]
         headers = payload["headers"]
@@ -57,23 +80,17 @@ def fetch_new_emails(username: str):
         snippet = email["snippet"]
         parts = payload["parts"]
         body_text: str = ""
-        flag = True
 
         for header in headers:
             if header["name"] == "From":
                 from_email: str = header["value"]  # company
             elif header["name"] == "To":
                 to_email: str = header["value"]
-                if not f"{username}@jobjug.co" == to_email:
-                    flag = False
                 email_name = to_email.split("@")[0]
             elif header["name"] == "Date":
                 date: str = header["value"]  # printable time
             elif header["name"] == "Subject":
                 subject: str = header["value"]
-
-        if not flag:
-            continue
 
         if payload["mimeType"] == "multipart/alternative":
             parts = payload["parts"]
@@ -101,11 +118,9 @@ def fetch_new_emails(username: str):
             "unix_time": time,
             "new": True,
         }
-        res.append(email_json)
+        all_emails.append(email_json)
+        new_emails.append(email_json)
 
-        db.get_collection("emails").insert_one(email_json)
+        # db.get_collection("emails").insert_one(email_json)
 
-    return res
-
-
-fetch_new_emails()
+    return all_emails, new_emails

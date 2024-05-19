@@ -1,4 +1,4 @@
-from email_scrape import fetch_new_emails
+from email_scrape import fetch_emails
 from eval_gpt import evaluate_email
 from database import *
 from flask import Flask, request, jsonify
@@ -19,53 +19,67 @@ def hello_world():
 
 
 @app.route("/api/emails", methods=["GET"])
-def get_emails(username: str):
+def get_emails():
+    username = request.args.get("username", type=str)
     # will give user and email
-    email_info = fetch_new_emails(username)
+    all_emails, new_emails = fetch_emails()
     res = []
 
     # will give company name, position name and status
-    for email in email_info:
-        if not email["new"]:
-            continue
-        # if email is new...
-        eval_data = evaluate_email(email["body"])
+    for email in all_emails:
+        # only evaluate the email if it is new
+        if email in new_emails:
+            eval_data = evaluate_email(email["body"])
 
-        status = eval_data[0]
-        position_name = eval_data[1]
-        company_name = eval_data[2]
+            status = eval_data[0]
+            position_name = eval_data[1]
+            company_name = eval_data[2]
 
-        res.append(
             email.update(
-                {"status": status, "position": position_name, "company": company_name}
-            )
-        )
-
-        # then update the database
-        if db.get_collection(username).find_one({"email_id": email["email_id"]}):
-            db.get_collection(username).update_one(
                 {
+                    "status": status,
                     "position": position_name,
                     "company": company_name,
-                },
-                {
-                    "$set": {
-                        "status": status,
+                }
+            )
+
+            # then update the database
+            if db.get_collection("emails").find_one({"email_id": email["email_id"]}):
+                db.get_collection("emails").update_one(
+                    {
                         "position": position_name,
                         "company": company_name,
-                    }
-                },
-            )
-        else:
-            # assuming that there is no previous email
-            db.get_collection(username).update_one(
-                {"email_id": email["email_id"]},
-                {
-                    "$set": {
-                        "status": status,
-                        "position": position_name,
-                        "company": company_name,
-                    }
-                },
-            )
-    return res
+                    },
+                    {
+                        "$set": {
+                            "status": f"{email['status']}{status}",
+                            "position": position_name,
+                            "company": company_name,
+                        }
+                    },
+                )
+            else:
+                # assuming that there is no previous email
+                db.get_collection("emails").insert_one(email)
+        # if the email is not new, then check if it matches the username
+        if email["to"] == username:
+            res.append(email)
+    fe_res = []
+    for db in res:
+        fe_res.append(convert_db_to_fe(db))
+    return jsonify(fe_res)
+
+
+def convert_db_to_fe(db_json):
+    return {
+        "id": str(db_json["email_id"]),
+        "status": db_json["status"],
+        "new": db_json["new"],
+        "title": db_json["subject"],
+        "company": db_json["company"],
+        "date": db_json["str_time"],
+    }
+
+
+if __name__ == "__main__":
+    app.run(port=5000)

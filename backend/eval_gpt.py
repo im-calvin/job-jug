@@ -1,6 +1,8 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+import ast
+
 
 # gpt-4-1106-preview	$0.01 / 1K tokens	$0.03 / 1K tokens
 # https://platform.openai.com/tokenizer
@@ -34,12 +36,16 @@ def evaluate_email(email_txt):
         messages=[
             {
                 "role": "system",
-                "content": "You are an expert recruiter for tech companies with 200 years of experience.",
+                "content": "You are an expert recruiter for tech companies with 200 years of experience. Respond only in Python Lists without any quotes or Markdown.",
             },
             {"role": "user", "content": prompt},
         ],
         n=1,  # how many instances of responses
-        max_tokens=2048,  # length/cost of the summary, 4096 is max, 512  is about 400 words
+        max_tokens=512,  # length/cost of the summary, 4096 is max, 512  is about 400 words
     )
 
-    return response.choices[0].message.content
+    str_res = response.choices[0].message.content
+    lst_res = ast.literal_eval(str_res)
+    if len(lst_res) != 3:
+        raise (ValueError("The response does not have 3 elements", lst_res))
+    return lst_res
