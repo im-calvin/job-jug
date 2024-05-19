@@ -40,26 +40,26 @@ def get_credentials():
 
 creds = get_credentials()
 
-service = build("gmail", "v1", credentials=creds)
-
 
 def get_emails_from_google():
+    service = build("gmail", "v1", credentials=creds)
     results = service.users().messages().list(userId="me", q="@jobjug.co").execute()
     messages = results.get("messages", [])
 
     return messages
 
 
-def is_new_email(email_id: str):
-    is_email = db.get_collection("emails").find_one({"email_id": email_id})
+# def is_new_email(email_id: str, db):
+#     is_email = db.get_collection("emails").find_one({"email_id": email_id})
 
-    if is_email is None:
-        return True  # email is new and not in the database
-    else:
-        return False
+#     if is_email is None:
+#         return True  # email is new and not in the database
+#     else:
+#         return False
 
 
-def fetch_emails():
+def fetch_emails(db):
+    service = build("gmail", "v1", credentials=creds)
     emails = get_emails_from_google()
     all_emails, new_emails = [], []
 
