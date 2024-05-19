@@ -12,6 +12,7 @@ export default function Sankey({dataCount}) {
   // 4. position offered
   // 5. position waitlisted
   useEffect(() => {
+    console.log("Weights: ", weights)
     const data = [
       ["From", "To", "Weight"],
       ["Application Received", "Rejection", weights[0]],

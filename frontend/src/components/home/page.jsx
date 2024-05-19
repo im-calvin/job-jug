@@ -32,24 +32,28 @@ function HomePage() {
       );
       setAwaiting(tempAwait);
 
-      const currentDate = new Date();
-      const tempGhosted = data.filter((job) => {
-        const jobDate = new Date(job.date);
-        const diffTime = jobDate.getTime() - currentDate.getTime();
-        const diffDays = Math.abs(Math.round(diffTime / (1000 * 3600 * 24)));
-        console.log("Job ", job.id, ": ", diffDays);
-        return diffDays > 21;
-      });
-      setGhostedJobs(tempGhosted);
-      tempAwait = tempAwait.filter((job) => tempGhosted.includes(job) === false);
-      setAwaiting(tempAwait);
-      const tempBad = data.filter((job) => job.status === 2).concat(tempGhosted);
-      setBadStuff(tempBad);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+        const currentDate = new Date();
+        const tempGhosted = mockData.filter(job => {
+            const jobDate = new Date(job.date);
+            const diffTime = jobDate.getTime() - currentDate.getTime();
+            const diffDays = Math.abs(Math.round(diffTime / (1000 * 3600 * 24)));
+            console.log("Job ", job.id, ": ", diffDays);
+            return diffDays > 21;
+        });
+        setGhostedJobs(tempGhosted);
+        tempAwait = tempAwait.filter(job => tempGhosted.includes(job) === false);
+        setAwaiting(tempAwait);
+        const tempBad = mockData.filter(job => job.status === 2).concat(tempGhosted)
+        setBadStuff(tempBad);
 
+        const reject = mockData.filter(job => job.status === 2).length;
+        const interview = mockData.filter(job => job.status === 3).length;
+        const offer = mockData.filter(job => job.status === 4).length;
+        const waitlist = mockData.filter(job => job.status === 5).length;
+        const ghosted = tempGhosted.length;
+
+        return [reject, interview, offer, waitlist, ghosted];
+    }
   // 1. job application confirmation
   // 2. job application rejection
   // 3. interview invitation
@@ -64,6 +68,14 @@ function HomePage() {
 
     return [reject, interview, offer, waitlist, ghosted];
   };
+
+    useEffect(() => {
+        // TO DO: implement data fetching from b/e
+        const tempCount = fetchData();
+        console.log("Data Count: ", tempCount)
+        setDataCount(tempCount);
+
+    }, []);
 
   useEffect(() => {
     // TO DO: implement data fetching from b/e
