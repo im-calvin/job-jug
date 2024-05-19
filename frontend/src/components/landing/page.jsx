@@ -1,9 +1,11 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import mockData from '../../data/mockjobs';
 
+import mail from '../../assets/'
+
 function LoginPage() {
-    const history = useHistory();  
+    const history = useNavigate();  
 
     async function login(formData) {
         try {
