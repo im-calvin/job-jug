@@ -36,28 +36,22 @@ function HomePage() {
         setAwaiting(tempAwait);
         const tempBad = mockData.filter(job => job.status === 2).concat(tempGhosted)
         setBadStuff(tempBad);
-    }
 
-    // 1. job application confirmation
-    // 2. job application rejection
-    // 3. interview invitation
-    // 4. position offered
-    // 5. position waitlisted
-    const countData = (data) => {
-        const reject = data.filter(job => job.status === 2).length;
-        const interview = data.filter(job => job.status === 3).length;
-        const offer = data.filter(job => job.status === 4).length;
-        const waitlist = data.filter(job => job.status === 5).length;
-        const ghosted = ghostedJobs.length;
-        
+        const reject = mockData.filter(job => job.status === 2).length;
+        const interview = mockData.filter(job => job.status === 3).length;
+        const offer = mockData.filter(job => job.status === 4).length;
+        const waitlist = mockData.filter(job => job.status === 5).length;
+        const ghosted = tempGhosted.length;
+
         return [reject, interview, offer, waitlist, ghosted];
     }
 
     useEffect(() => {
         // TO DO: implement data fetching from b/e
-        fetchData();
-        const tempCount = countData(mockData);
+        const tempCount = fetchData();
+        console.log("Data Count: ", tempCount)
         setDataCount(tempCount);
+
     }, []);
 
     // useEffect(() => {
