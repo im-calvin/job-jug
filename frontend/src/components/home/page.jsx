@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import mockData from '../../data/mockjobs';
 import Dashboard from '../dashboard/page';
+import Searchbar from '../searchbar/page';
+import Navbar from '../navbar/page';
+import Login from '../login/page';
 
 function HomePage() {
     const [goodStuff, setGoodStuff] = useState([]);
@@ -30,9 +33,15 @@ function HomePage() {
 
     return (
         <>
-            <div className="my-8">
-                <h1 className="text-2xl font-bold text-center">Welcome, {user}!</h1>
+            <Navbar></Navbar>
+            <div className='flex flex-row justify-center h-fit w-full pt-32'>
+                <div className='w-4/5 h-full m-auto'>
+                    <h3 className='text-2xl'>{user}!</h3>
+                    <h1 className='text-4xl'>Summer 2024 Set</h1>
+                </div>
             </div>
+
+            <Searchbar></Searchbar>
             <Dashboard goodStuff={goodStuff} badStuff={badStuff} awaiting={awaiting} />
         </>
     );
