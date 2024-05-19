@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import mockData from "../../data/mockjobs";
-import Navbar from '../navbar/page';
-
+import logo from '../../assets/logo.png'
 import mail from '../../assets/frame1.png';
 
 function LoginPage() {
@@ -46,17 +45,17 @@ function LoginPage() {
   return (
     <>
 
-    <Navbar></Navbar>
       <div className="pt-32">
-        <img className='size-[30vw] absolute object-contain right-[14%] bottom-[14%]'src ={mail}></img>
+        <img className='size-[30vw] absolute object-contain right-[14%] bottom-[13%]'src ={mail}></img>
         <div className="w-3/4 border-2 rounded-lg px-20 border-gray-200 m-auto">
           <div className="mt-20"></div>
 
                     <div className='container mt-20'>
-                        <div className='flex flex-row justify-between w-full'>
+                        <div className='flex flex-row gap-4 justify-between w-full'>
+                            <img className='size-20'src ={logo}></img>
                             <div className='container'>
                                 <h1 className='text-6xl'>Create an account</h1>
-                                <h3> Already have an account? Log in</h3>
+                                <h3> Enter your information below</h3>
                             </div>
                         </div>
                     </div>

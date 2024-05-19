@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Dashboard from "../dashboard/page";
 import Searchbar from "../searchbar/page";
-import Navbar from "../navbar/page";
 import Login from "../register/page";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { IoIosRefresh } from "react-icons/io";
+import logo from '../../assets/logo.png'
 
 function HomePage() {
   const [goodStuff, setGoodStuff] = useState([]);
@@ -99,28 +99,50 @@ function HomePage() {
 
   return (
     <>
-      <Navbar></Navbar>
+          <div className='container'>
+        <div className='h-20 w-lvw mb-10 border-2 border-blac shadow-sm flex flex-col justify-center fixed bg-white'>
+            <div className='w-3/4 h-fit m-auto flex flex-row justify-between'>
+
+
+                <div className='flex flex-row my-auto'>
+                <img className=' flex flex-col justify-center size-10 mr-4' src={logo}></img>
+                <div className=' flex flex-col justify-center'><h1>JobJug</h1></div>
+                </div>
+
+                <div className=' flex flex-row gap-3 my-auto'>
+                  <ul> 
+                    <button className=" border border-gray-300 rounded-md bg-gray-900 px-10 py-3"
+                    onClick={fetchData}>
+                    <IoIosRefresh />
+                    </button>
+                  </ul>
+
+                  <ul>
+                  <Link to="/">
+                      <button className=" border border-gray-300 text-white rounded-md bg-gray-900 px-10 py-2">
+                          Log Out
+                      </button>
+                  </Link>
+                  </ul>
+                </div>
+            </div>
+        </div>
+        {/* <div className='mb-20'></div> */}
+    </div>
 
       <div className="flex flex-row justify-center h-fit w-full pt-32">
-        <div className="w-4/5 h-full m-auto">
+        <div className="w-4/5 flex justify-center h--full m-auto">
+
+          <div className='container'>
           <h3 className="text-2xl">Welcome back, {name[0]} {name[1]}!</h3>
           <h1 className="text-4xl">Summer 2024 Set</h1>
-          <span class="flex flex-row justify-between">
-            <button
-                className="mt-4 border border-gray-300 rounded-md bg-gray-900 px-10 py-3"
-                onClick={fetchData}>
-                <IoIosRefresh />
-            </button>
-                <Link to="/">
-                    <button className="mt-4 border border-gray-300 text-white rounded-md bg-gray-900 px-10 py-3">
-                        Log Out
-                    </button>
-                </Link>
-          </span>
+          </div>
+
+
         </div>
       </div>
-
-      <Searchbar></Searchbar>
+{/* 
+      <Searchbar></Searchbar> */}
       <Dashboard goodStuff={goodStuff} badStuff={badStuff} awaiting={awaiting} />
     </>
   );

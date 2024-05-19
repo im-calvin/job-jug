@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Navbar from '../navbar/page';
 import frame2 from '../../assets/frame2.png';
+import logo from '../../assets/logo.png'
 
 function RegisterPage() {
   const location = useLocation();
@@ -22,7 +22,6 @@ function RegisterPage() {
   };
   return (
     <>
-        <Navbar></Navbar>
 
       <div className="pt-32">
       <img className='absolute right-[7%] bottom-[35%] size-[40%] object-contain' src={frame2}></img>
@@ -31,9 +30,12 @@ function RegisterPage() {
 
           <div className='w-3/5 h-4/5 grid grid-rows-2'>
             
-            <div className='container mt-20'>
-              <h3> Don't lose it!</h3>
-              <h1 className='text-6xl'>Your new email is ready!</h1>
+            <div className='flex gap-4 mt-5 flex-rows'>
+              <img className='size-20' src={logo}></img>
+              <div className='container'>
+                <h3> Don't lose it!</h3>
+                <h1 className='text-6xl'>Your new email is ready!</h1>
+              </div>
             </div>
 
             <div className="container mt-10 flex flex-row gap-4">

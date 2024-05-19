@@ -9,7 +9,7 @@ function Dashboard({goodStuff, badStuff, awaiting}) {
         5: '#fde047', // waitlist
     }
     return (
-        <div className="flex flex-col justify-start m-auto h-lvh w-4/5">
+        <div className="mt-5 flex flex-col justify-start m-auto h-lvh w-4/5">
             <table className=''>
                 <tr className='flex flex-row'>
                     <td className='h-fit bg-gray-200 rounded-md mx-2 flex-col flex w-full justify-start'>
