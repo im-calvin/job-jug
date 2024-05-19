@@ -49,15 +49,6 @@ def get_emails_from_google():
     return messages
 
 
-# def is_new_email(email_id: str, db):
-#     is_email = db.get_collection("emails").find_one({"email_id": email_id})
-
-#     if is_email is None:
-#         return True  # email is new and not in the database
-#     else:
-#         return False
-
-
 def fetch_emails(db):
     service = build("gmail", "v1", credentials=creds)
     emails = get_emails_from_google()

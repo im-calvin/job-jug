@@ -10,7 +10,7 @@ load_dotenv()
 key = os.getenv("OPENAI_API_KEY")
 
 
-def evaluate_email(email_txt):
+def evaluate_email(email_txt, prev_jobs):
     client = OpenAI(
         # defaults to os.environ.get("OPENAI_API_KEY")
         api_key=os.getenv("OPENAI_API_KEY")
@@ -25,7 +25,13 @@ def evaluate_email(email_txt):
         + "\n"
     )
     prompt_context = email_txt
-    further_instr = "only give a number, also find position name and company name and return everything in python list format."
+    prev_jobs_list = [
+        f"{info_json['company']}, {info_json['position']}" for info_json in prev_jobs
+    ]
+    prev_jobs_str = "\n".join(prev_jobs_list)
+    further_instr = f"""Make sure to only give a number. Also find the position name and company name. Sometimes the email will be a followup for a previous application, such as offering an interview. Check the pairs of company/position names below, and if you think the email is a followup of a pair, then copy them exactly, otherwise guess what the company and position name are: 
+    {prev_jobs_str}
+    Remember to return everything in python list format."""
 
     # https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api
     prompt = prompt_instr + "\n" + prompt_context + "\n" + further_instr
