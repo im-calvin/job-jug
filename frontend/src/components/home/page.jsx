@@ -106,7 +106,7 @@ function HomePage() {
           <h3 className="text-2xl">Welcome back, {name[0]} {name[1]}!</h3>
           <h1 className="text-4xl">Summer 2024 Set</h1>
           <button
-            className="border border-gray-300 rounded-md bg-gray-900 px-10 py-3"
+            className="mt-4 border border-gray-300 rounded-md bg-gray-900 px-10 py-3"
             onClick={fetchData}>
             <IoIosRefresh />
           </button>
