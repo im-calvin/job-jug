@@ -57,7 +57,9 @@ function Dashboard({goodStuff, badStuff, awaiting}) {
                     <td className='h-fit bg-gray-200 rounded-md mx-2 flex-col flex justify-start w-full'>
                     <th className='w-full mb-5 bg-gray-900 rounded-md py-3 px-4 shadow-md'><h1 className="text-white"> Rejections</h1></th>
                         {badStuff.map(job => (
-                        <div className={`mb-4 mx-2.5 w-11/12 border ${job.new ? 'border-blue-300' : 'border-gray-300'} bg-contain rounded-md shadow-md overflow-hidden`} style={{backgroundColor: statusColours[job.status]}} key={job.id}>
+                        <div className={`mb-4 mx-2.5 w-11/12 border ${job.new ? 'border-blue-300' : 'border-gray-300'} bg-red-400 bg-contain rounded-md shadow-md overflow-hidden`} 
+                            key={job.id}
+                        >
                             <div className='flex-row flex'>
                                 <span className='h-full w-1/12 bg-red-400'>
                                     </span>
