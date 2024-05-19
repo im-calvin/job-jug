@@ -12,7 +12,6 @@ function LoginPage() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    ("use server");
     try {
       console.log("Incoming User: ", firstName, lastName);
 

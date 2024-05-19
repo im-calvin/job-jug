@@ -1,10 +1,11 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function RegisterPage() {
   const location = useLocation();
   const state = location.state;
   const username = state.firstName + state.lastName;
+  const navigate = useNavigate();
 
   const handleCopy = async () => {
     try {
@@ -13,6 +14,10 @@ function RegisterPage() {
     } catch (err) {
       console.error("Failed to copy: ", err);
     }
+  };
+
+  const handleHome = async () => {
+    navigate("/home");
   };
   return (
     <>
@@ -40,7 +45,9 @@ function RegisterPage() {
                   {" "}
                   <h3 className="text-white"> Copy Email </h3>{" "}
                 </button>
-                <button className="border w-1/4 h-16 border-gray-300 bg-black rounded-md px-4 pt-3 pb-1">
+                <button
+                  className="border w-1/4 h-16 border-gray-300 bg-black rounded-md px-4 pt-3 pb-1"
+                  onClick={handleHome}>
                   {" "}
                   <h3 className="text-white"> Go Home </h3>{" "}
                 </button>
