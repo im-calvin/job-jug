@@ -28,12 +28,9 @@ function LoginPage() {
 
       if (data.length === 0) {
         // redirect user to email address screen
-        const promptData = {
-          firstName,
-          lastName,
-        };
+        const username = firstName + lastName;
         navigate("/register", {
-          state: promptData,
+          username,
         });
       } else {
         // redirect user to main dashboard with data

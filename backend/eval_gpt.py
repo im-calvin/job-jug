@@ -11,33 +11,28 @@ key = os.getenv("OPENAI_API_KEY")
 
 
 def evaluate_email(email_txt, prev_jobs):
-    client = OpenAI(
-        # defaults to os.environ.get("OPENAI_API_KEY")
-        api_key=os.getenv("OPENAI_API_KEY")
-    )
+    client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-    intructions = ""
     options = "1. job application confirmation; 2. job application rejection; 3. interview invitation; 4. position offered; 5. position waitlisted;"
-
-    prompt_instr = (
-        "From the given email, tell me if which of the following options is the email about: \n"
-        + options
-        + "\n"
-    )
-    prompt_context = email_txt
     prev_jobs_list = [
         f"{info_json['company']}, {info_json['position']}" for info_json in prev_jobs
     ]
     prev_jobs_str = "\n".join(prev_jobs_list)
-    further_instr = f"""Make sure to only give a number. Also find the position name and company name. Sometimes the email will be a followup for a previous application, such as offering an interview. Check the pairs of company/position names below, and if you think the email is a followup of a pair, then copy them exactly, otherwise guess what the company and position name are: 
-    {prev_jobs_str}
-    Remember to return everything in python list format."""
 
-    # https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api
-    prompt = prompt_instr + "\n" + prompt_context + "\n" + further_instr
+    prompt = f"""
+        From the given email, tell me which option it is about:
+        {options}
+        
+        {email_txt}
+        
+        If the email is about an interview, offer, or rejection, check the pairs of company/position names below and if you think they are similar, then copy them exactly in the response. Otherwise create a new pair. If you are not sure, leave it as 'Unknown'.
+        {prev_jobs_str}
+        Return the result as a Python list.
+
+        For example, if the email is about an interview invitation for a position at Google, the response should be [3, 'Google', 'position name'].
+    """
 
     response = client.chat.completions.create(
-        #'gpt-4'
         model="gpt-4o",
         messages=[
             {
@@ -46,12 +41,13 @@ def evaluate_email(email_txt, prev_jobs):
             },
             {"role": "user", "content": prompt},
         ],
-        n=1,  # how many instances of responses
-        max_tokens=512,  # length/cost of the summary, 4096 is max, 512  is about 400 words
+        n=1,
+        max_tokens=512,
+        temperature=0.0,
     )
 
     str_res = response.choices[0].message.content
     lst_res = ast.literal_eval(str_res)
     if len(lst_res) != 3:
-        raise (ValueError("The response does not have 3 elements", lst_res))
+        raise ValueError("The response does not have 3 elements", lst_res)
     return lst_res

@@ -5,8 +5,7 @@ import frame2 from '../../assets/frame2.png';
 
 function RegisterPage() {
   const location = useLocation();
-  const state = location.state;
-  const username = state.firstName + state.lastName;
+  const username = location.username;
   const navigate = useNavigate();
 
   const handleCopy = async () => {

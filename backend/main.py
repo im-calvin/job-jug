@@ -33,18 +33,18 @@ def get_emails():
     username = request.args.get("username", type=str)
     # will give user and email
     all_emails, new_emails = fetch_emails(db)
-    prev_jobs = db.get_collection('jobs').find({'user': username})
     res = []
 
     # will give company name, position name and status
     for email in all_emails:
         # only evaluate the email if it is new
         if email in new_emails:
+            prev_jobs = db.get_collection('jobs').find({'user': username})
             eval_data = evaluate_email(f'{email['subject']}{email["body"]}', prev_jobs)
 
             status = eval_data[0]
-            position_name = eval_data[1]
-            company_name = eval_data[2]
+            position_name = eval_data[2]
+            company_name = eval_data[1]
 
             # only insert if company, position, user does not exist
             if not db.get_collection('jobs').find_one({'company': company_name, 'user': username, 'position': position_name}):
@@ -60,6 +60,18 @@ def get_emails():
 
             # then update the database
             if db.get_collection("emails").find_one({"email_id": email["email_id"]}):
+                db.get_collection("emails").update_one({
+                    "email_id": email["email_id"]
+                }, {
+                    "$set": {
+                        "status": status,
+                        "position": position_name,
+                        "company": company_name,
+                    }
+                }) # this probably will never happen.
+                print('Something weird happened. Email already exists in the database.') # maybe an email reply will trigger this actually 
+            elif db.get_collection('emails').find_one({'position': position_name, 'company': company_name}):
+                # if there is no previous email then check for position and company and then update the status
                 db.get_collection("emails").update_one(
                     {
                         "position": position_name,
@@ -74,7 +86,8 @@ def get_emails():
                     },
                 )
             else:
-                # assuming that there is no previous email
+                # the email is completely new (status should be 1)
+                assert status == 1
                 db.get_collection("emails").insert_one(email)
         # if the email is not new, then check if it matches the username
         if email["to"] == username:
