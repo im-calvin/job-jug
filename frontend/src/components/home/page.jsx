@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import mockData from '../../data/mockjobs';
+import Dashboard from '../dashboard/page';
 
 function HomePage() {
     const [goodStuff, setGoodStuff] = useState([]);
@@ -29,44 +30,10 @@ function HomePage() {
 
     return (
         <>
-            <h1>Welcome, {user}!</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Good Stuff</th>
-                        <th>Bad Stuff</th>
-                        <th>Awaiting</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            {goodStuff.map(job => (
-                                <div key={job.id}>
-                                    <div>{job.title}</div>
-                                    <div>{job.company}</div>
-                                </div>
-                            ))}
-                        </td>
-                        <td>
-                            {badStuff.map(job => (
-                                <div key={job.id}>
-                                    <div>{job.title}</div>
-                                    <div>{job.company}</div>
-                                </div>                 
-                            ))}
-                        </td>
-                        <td>
-                            {awaiting.map(job => (
-                                <div key={job.id}>
-                                    <div>{job.title}</div>
-                                    <div>{job.company}</div>
-                                </div>                         
-                            ))}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div className="my-8">
+                <h1 className="text-2xl font-bold text-center">Welcome, {user}!</h1>
+            </div>
+            <Dashboard goodStuff={goodStuff} badStuff={badStuff} awaiting={awaiting} />
         </>
     );
 };
