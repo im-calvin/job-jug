@@ -19,9 +19,10 @@ def evaluate_email(email_txt):
 
     prompt_instr = "From the given email, tell me if which of the following options is the email about: \n"+options+"\n"
     prompt_context = email_txt
+    further_instr = "only return a number"
 
     #https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-openai-api
-    prompt = prompt_instr+"\n"+prompt_context
+    prompt = prompt_instr+"\n"+prompt_context+"\n"+further_instr
 
 
     response = client.chat.completions.create(
@@ -57,3 +58,6 @@ Early Career Talent Recruiter – North America
 """
 
 print(evaluate_email(email_txt))
+
+#company name
+#position name
