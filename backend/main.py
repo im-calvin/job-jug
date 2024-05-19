@@ -31,6 +31,8 @@ def get_analytics():
 @app.route("/api/emails", methods=["GET"])
 def get_emails():
     username = request.args.get("username", type=str)
+    if not username or username == 'undefined':
+        return jsonify([])
     # will give user and email
     all_emails, new_emails = fetch_emails(db)
     res = []
@@ -72,6 +74,7 @@ def get_emails():
                 print('Something weird happened. Email already exists in the database.') # maybe an email reply will trigger this actually 
             elif db.get_collection('emails').find_one({'position': position_name, 'company': company_name}):
                 # if there is no previous email then check for position and company and then update the status
+                prev = db.get_collection('emails').find_one({'position': position_name, 'company': company_name})
                 db.get_collection("emails").update_one(
                     {
                         "position": position_name,
@@ -79,7 +82,7 @@ def get_emails():
                     },
                     {
                         "$set": {
-                            "status": f"{email['status']}{status}",
+                            "status": f"{prev['status']}{status}",
                             "position": position_name,
                             "company": company_name,
                         }
@@ -90,6 +93,7 @@ def get_emails():
                 assert status == 1
                 db.get_collection("emails").insert_one(email)
         # if the email is not new, then check if it matches the username
+    for email in all_emails:
         if email["to"] == username:
             res.append(email)
     fe_res = []

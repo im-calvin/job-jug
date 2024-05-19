@@ -46,7 +46,7 @@ def get_emails_from_google():
     results = service.users().messages().list(userId="me", q="@jobjug.co").execute()
     messages = results.get("messages", [])
 
-    return messages
+    return messages[::-1]  # Reverse the order of messages
 
 
 def fetch_emails(db):
