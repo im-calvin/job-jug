@@ -3,7 +3,7 @@ import Dashboard from "../dashboard/page";
 import Searchbar from "../searchbar/page";
 import Navbar from "../navbar/page";
 import Login from "../register/page";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { IoIosRefresh } from "react-icons/io";
 
 function HomePage() {
@@ -105,11 +105,18 @@ function HomePage() {
         <div className="w-4/5 h-full m-auto">
           <h3 className="text-2xl">Welcome back, {name[0]} {name[1]}!</h3>
           <h1 className="text-4xl">Summer 2024 Set</h1>
-          <button
-            className="mt-4 border border-gray-300 rounded-md bg-gray-900 px-10 py-3"
-            onClick={fetchData}>
-            <IoIosRefresh />
-          </button>
+          <span class="flex flex-row justify-between">
+            <button
+                className="mt-4 border border-gray-300 rounded-md bg-gray-900 px-10 py-3"
+                onClick={fetchData}>
+                <IoIosRefresh />
+            </button>
+                <Link to="/">
+                    <button className="mt-4 border border-gray-300 text-white rounded-md bg-gray-900 px-10 py-3">
+                        Log Out
+                    </button>
+                </Link>
+          </span>
         </div>
       </div>
 
