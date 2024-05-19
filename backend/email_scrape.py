@@ -83,7 +83,16 @@ def fetch_emails(db):
             elif header["name"] == "Subject":
                 subject: str = header["value"]
 
-        if payload["mimeType"] == "multipart/alternative":
+        if payload["mimeType"] == "multipart/related":
+            parts = payload["parts"]
+            for part in parts:
+                if part["mimeType"] == "multipart/alternative":
+                    payload["mimeType"] = "multipart/alternative"
+                    payload["parts"] = part["parts"]
+                    # trust.
+                    break
+
+        if payload["mimeType"] in ["multipart/alternative"]:
             parts = payload["parts"]
             for part in parts:
                 mimeType = part["mimeType"]
