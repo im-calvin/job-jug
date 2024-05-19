@@ -45,7 +45,7 @@ function LoginPage() {
   return (
     <>
 
-      <div className="pt-32">
+      <div className="pt-16">
         <img className='size-[30vw] absolute object-contain right-[14%] bottom-[13%]'src ={mail}></img>
         <div className="w-3/4 border-2 rounded-lg px-20 border-gray-200 m-auto">
           <div className="mt-20"></div>
@@ -81,7 +81,7 @@ function LoginPage() {
                 </div>
                 <button
                   type="submit"
-                  className="border mt-10 border-gray-300 rounded-md bg-gray-900 px-10 py-3">
+                  className="border mt-10 text-white border-gray-300 rounded-md bg-gray-900 px-10 py-3">
                   {" "}
                   <h3 className="font-bold ">Create Account</h3>
                 </button>

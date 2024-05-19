@@ -119,7 +119,7 @@ function HomePage() {
 
                   <ul>
                   <Link to="/">
-                      <button className=" border border-gray-300 text-white rounded-md bg-gray-900 px-10 py-2">
+                      <button className=" border border-gray-300 rounded-md bg-gray-900 px-10 py-2">
                           Log Out
                       </button>
                   </Link>
