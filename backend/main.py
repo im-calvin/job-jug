@@ -18,23 +18,37 @@ db = mongoClient.get_database("kelvinwong")
 def hello_world():
     return "Hello, World!"
 
+@app.route('/api/analytics', methods=['GET'])
+def get_analytics():
+    username = request.args.get('username', type=str)
+    emails = db.get_collection('emails').find({'to': username})
+    res = []
+    for email in emails:
+        res.append(convert_db_to_fe(email))
+    print(res)
+    return jsonify(res)
 
 @app.route("/api/emails", methods=["GET"])
 def get_emails():
     username = request.args.get("username", type=str)
     # will give user and email
     all_emails, new_emails = fetch_emails(db)
+    prev_jobs = db.get_collection('jobs').find({'user': username})
     res = []
 
     # will give company name, position name and status
     for email in all_emails:
         # only evaluate the email if it is new
         if email in new_emails:
-            eval_data = evaluate_email(f'{email['subject']}{email["body"]}')
+            eval_data = evaluate_email(f'{email['subject']}{email["body"]}', prev_jobs)
 
             status = eval_data[0]
             position_name = eval_data[1]
             company_name = eval_data[2]
+
+            # only insert if company, position, user does not exist
+            if not db.get_collection('jobs').find_one({'company': company_name, 'user': username, 'position': position_name}):
+                db.get_collection('jobs').insert_one({'company': company_name, 'user': username, 'position': position_name})
 
             email.update(
                 {
