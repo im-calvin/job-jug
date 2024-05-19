@@ -56,15 +56,6 @@ function HomePage() {
   // 3. interview invitation
   // 4. position offered
   // 5. position waitlisted
-  const countData = (data) => {
-    const reject = data.filter((job) => job.status === 2).length;
-    const interview = data.filter((job) => job.status === 3).length;
-    const offer = data.filter((job) => job.status === 4).length;
-    const waitlist = data.filter((job) => job.status === 5).length;
-    const ghosted = ghostedJobs.length;
-
-    return [reject, interview, offer, waitlist, ghosted];
-  };
 
   useEffect(() => {
     // TO DO: implement data fetching from b/e
