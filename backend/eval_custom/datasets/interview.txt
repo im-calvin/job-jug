@@ -1,0 +1,158 @@
+1. Subject: Exciting Opportunity at Skyline Innovations Inc.
+   Body: Hi Alex,
+
+   Thank you for applying for the position of Full-Stack Developer Co-op with Skyline Innovations Inc. You have been selected to interview for this position. Interviews will take place in person on April 19 and 20 in Surrey. Please indicate your availability using the poll link provided.
+
+   Regards,
+   A. Nadler
+
+2. Subject: Invitation to Interview at Stellar Solutions
+   Body: Hi Emily,
+
+   I'm reaching out from Stellar Solutions regarding your application for the Summer Internship position. We're impressed with your qualifications and would like to schedule a first interview for you. Please reply to this email with your availability, and we'll coordinate the details.
+
+   Best regards,
+   Alex
+
+3. Subject: Interview Confirmation - SAP iXp Intern
+   Body: Dear Jason,
+
+   We are excited to schedule an interview with you for the SAP iXp Intern - Agile Developer, HANA and Analytics role. Please use the provided link to select a date and time that works best for you. We look forward to meeting you virtually!
+
+   Best regards,
+   Alex (Automated Interview Scheduling Agent)
+
+4. Subject: Invitation to Final Round Interview - Amazon Software Development Engineer Internship
+   Body: Hi Sophia,
+
+   Congratulations! You have been selected for the final round interview for the 2024 Summer Software Development Engineer Internship position at Amazon. Please complete the survey link provided to select your availability for the virtual interview.
+
+   Best regards,
+   Amazon Student Programs
+
+5. Subject: Interview Invitation from Visier Co-op Program
+   Body: Hi Ethan,
+
+   Congratulations on advancing to the next stage in the Visier Co-op Program process! You are invited to attend the Co-op Webinar to learn more about Visier and take a technical test. Please register for your preferred session using the provided link.
+
+   Regards,
+   Visier Recruitment Team
+
+6. Subject: HackerRank Challenge - FY24_ET_Software Application Development Engineer Intern
+   Body: Hi Sarah,
+
+   Thank you for your interest in Workday! You are invited to participate in a HackerRank challenge as the first step in our consideration process for the Software Application Development Engineer Intern position. Click the "Start Challenge" button in the email to begin.
+
+   Good luck!
+
+7. Subject: Invitation to HackerRank Challenge - Software Application Development Co-op
+   Body: Hi Michael,
+
+   Congratulations on being selected to participate in the HackerRank challenge for the Software Application Development Co-op position at Workday! Keep an eye out for instructions from HackerRank on how to prepare for the assessment.
+
+   Regards,
+   Krista Corsentino
+
+8. Subject: Interview Invitation - Spring Co-op Program at Bright Horizon
+   Body: Hi Olivia,
+
+   We're excited to invite you to interview for the Spring Co-op Program at Bright Horizon. Please reply to this email with your availability, and we'll schedule a convenient time for your interview.
+
+   Best regards,
+   Sarah Thompson
+
+9. Subject: Next Steps in the Hiring Process - Front End Developer Co-op Position
+   Body: Hi Benjamin,
+
+   Thank you for your interest in the Front End Developer Co-op position at Techno Solutions Inc. You have been shortlisted for an interview. Please reply to this email with your availability for an interview.
+
+   Regards,
+   Chris Evans
+
+10. Subject: Invitation to HackerRank Challenge - Software Engineer Internship
+    Body: Hi Emma,
+
+    Congratulations! You have been selected to participate in a HackerRank challenge for the Software Engineer Internship position at XYZ Solutions. Check your inbox for instructions on how to proceed with the challenge.
+
+    Best regards,
+    Emily Chen
+
+11. Subject: Interview Invitation - Data Analyst Internship
+    Body: Hi Lucas,
+
+    We are pleased to invite you to interview for the Data Analyst Internship at Alpha Analytics. Please reply to this email with your availability, and we'll schedule a time for your interview.
+
+    Best regards,
+    Lauren Miller
+
+12. Subject: HackerRank Challenge Invitation - Software Engineering Co-op
+    Body: Hi Lily,
+
+    Congratulations on moving forward in the hiring process for the Software Engineering Co-op position at Beta Technologies! You have been invited to complete a HackerRank challenge. Good luck!
+
+    Regards,
+    Mark Johnson
+
+13. Subject: Invitation to Virtual Interview - Product Management Internship
+    Body: Hi Noah,
+
+    We're impressed with your qualifications and would like to invite you to a virtual interview for the Product Management Internship at Gamma Solutions. Please reply to this email with your availability.
+
+    Best regards,
+    Sophia Lee
+
+14. Subject: Interview Confirmation - Summer Marketing Internship
+    Body: Hi William,
+
+    This is to confirm your interview for the Summer Marketing Internship at Delta Dynamics. The interview will take place on [Date] at [Time]. Please let us know if you have any questions or need further information.
+
+    Regards,
+    David Brown
+
+15. Subject: Invitation to Second Round Interview - Data Science Co-op Program
+    Body: Hi Mia,
+
+    Congratulations! You have been selected to proceed to the second round of interviews for the Data Science Co-op Program at Epsilon Enterprises. Please reply to this email with your availability for the next interview.
+
+    Best regards,
+    Jennifer Smith
+
+16. Subject: Next Steps - Software Development Co-op Program
+    Body: Hi Oliver,
+
+    Thank you for your application to the Software Development Co-op Program at Zeta Innovations. You have been selected for an interview. Please reply to this email with your availability.
+
+    Regards,
+    Michael Johnson
+
+17. Subject: Interview Invitation - Finance Internship
+    Body: Hi Harper,
+
+    We're excited to invite you to interview for the Finance Internship at Omega Financial Services. Please reply to this email with your availability for an interview.
+
+    Best regards,
+    Stephanie Taylor
+
+18. Subject: Invitation to Technical Interview - Machine Learning Co-op
+    Body: Hi Ethan,
+
+    Congratulations on being selected for a technical interview for the Machine Learning Co-op position at Theta Technologies. Please reply to this email with your availability for the interview.
+
+    Regards,
+    Jason Lee
+
+19. Subject: HackerRank Challenge - Software Engineering Internship
+    Body: Hi Chloe,
+
+    Thank you for your interest in the Software Engineering Internship at NuTech Solutions! You have been invited to participate in a HackerRank challenge. Instructions will be sent to you shortly.
+
+    Best regards,
+    Emily Clark
+
+20. Subject: Invitation to Interview - Research and Development Co-op Program
+    Body: Hi Ava,
+
+    We are pleased to invite you to interview for the Research and Development Co-op Program at Sigma Sciences. Please reply to this email with your availability for the interview.
+
+    Best regards,
+    Alex Johnson

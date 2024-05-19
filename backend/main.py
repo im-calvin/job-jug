@@ -22,7 +22,7 @@ def hello_world():
 def get_emails():
     username = request.args.get("username", type=str)
     # will give user and email
-    all_emails, new_emails = fetch_emails()
+    all_emails, new_emails = fetch_emails(db)
     res = []
 
     # will give company name, position name and status
@@ -65,8 +65,8 @@ def get_emails():
         if email["to"] == username:
             res.append(email)
     fe_res = []
-    for db in res:
-        fe_res.append(convert_db_to_fe(db))
+    for d_json in res:
+        fe_res.append(convert_db_to_fe(d_json))
     print(fe_res)
     return jsonify(fe_res)
 
@@ -76,11 +76,11 @@ def convert_db_to_fe(db_json):
         "id": str(db_json["email_id"]),
         "status": db_json["status"],
         "new": db_json["new"],
-        "title": db_json["subject"],
+        "title": db_json["position"],
         "company": db_json["company"],
         "date": db_json["str_time"],
     }
 
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(debug=True, port=5000)
