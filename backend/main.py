@@ -1,8 +1,9 @@
 from email_scrape import fetch_emails
 from eval_gpt import evaluate_email
-from database import *
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from pymongo import MongoClient
+import os
 import json
 
 app = Flask(__name__)
@@ -29,7 +30,7 @@ def get_emails():
     for email in all_emails:
         # only evaluate the email if it is new
         if email in new_emails:
-            eval_data = evaluate_email(email["body"])
+            eval_data = evaluate_email(f'{email['subject']}{email["body"]}')
 
             status = eval_data[0]
             position_name = eval_data[1]
