@@ -33,7 +33,9 @@ function HomePage() {
 
     return (
         <>
-            <Navbar></Navbar>
+
+        <Navbar></Navbar>
+     
             <div className='flex flex-row justify-center h-fit w-full pt-32'>
                 <div className='w-4/5 h-full m-auto'>
                     <h3 className='text-2xl'>{user}!</h3>

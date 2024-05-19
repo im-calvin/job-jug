@@ -1,4 +1,4 @@
-function page() {
+function Navbar() {
   return (
     <div className='container'>
         <div className='h-20 w-lvw mb-10 border-2 border-blac shadow-sm flex flex-col justify-center fixed bg-white'>
@@ -16,4 +16,4 @@ function page() {
   )
 }
 
-export default page
+export default Navbar;

@@ -3,55 +3,34 @@ import React from 'react';
 function LoginPage() {  
     return (
         <>
-            <div className='mt-20 w-3/4 border-2 border-black m-auto'>
+            <div className='pt-32'>
+            <div className='w-3/4 h-fit border-2 rounded-lg px-20 border-gray-200 m-auto'>  
+                <div className='mt-20'></div>
 
-                <div className='w-2/3 border-2 border-black h-fit'>
-                    <h1>Create an account</h1>
-                    <h3> Already have an account? Log in</h3>
+                <div className=' bg-red-500 rounded-full size-20'> </div>
 
-                    <div className='flex flex-row mt-20 justify-between'>
-                        <div className=''>
-                        <h3>First Name</h3>
-                        <div className='border border-gray-200 rounded-sm'> words </div>
-                        </div>
-
-                        <div className=''>
-                        <h3> Last Name </h3>
-                        <div className='border border-gray-200 rounded-sm'> words </div>
-                        </div>
+                <div className='w-4/5 grid grid-rows-2'>
+                    <div className='container mt-20'>
+                    <h3> Don't lose it!</h3>
+                    <h1 className='text-6xl'>Your new email is</h1>
                     </div>
 
-                        <h3> Last Name </h3>
-                        <div className='border border-gray-200 rounded-sm'> words </div>
+                <div className='container mt-5' >
 
-                    <div className='flex flex-row justify-between'>
-                        <div className=''>
-                        <h3>First Name</h3>
-                        <div className='border border-gray-200 rounded-sm'> words </div>
-                        </div>
+                <h3 className='mb-2'>First Name</h3>
 
-                        <div className=''>
-                        <h3> Last Name </h3>
-                        <div className='border border-gray-200 rounded-sm'> words </div>
+                    <div className='flex w-full gap-4 mb-20'>
+                        <div className='border w-3/4 h-16 border-gray-300 rounded-md px-4 pt-5 pb-1'> words </div>
+                        <button className='border w-1/4 h-16 border-gray-300 bg-black rounded-md px-4 pt-3 pb-1'> <h3 className='text-white'> Copy Email </h3> </button>
+                        <button className='border w-1/4 h-16 border-gray-300 bg-black rounded-md px-4 pt-3 pb-1'> <h3 className='text-white'> Next </h3> </button>
                     </div>
-
-
-                    <div className='flex flex-row justify-between'>
-                        <div className=''>
-                        <h3>First Name</h3>
-                        <div className='border border-gray-200 rounded-sm'> words </div>
-                        </div>
-
-                        <div className=''>
-                        <h3> Last Name </h3>
-                        <div className='border border-gray-200 rounded-sm'> words </div>
-                        </div>
-                    </div>
-
-                    
-                    </div>
-
                 </div>
+
+                
+                </div>
+                </div>
+
+                <div className='pb-20'></div>
             </div>
         </>
     );
