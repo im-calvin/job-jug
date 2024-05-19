@@ -11,8 +11,8 @@ function HomePage() {
   const [badStuff, setBadStuff] = useState([]);
   const [awaiting, setAwaiting] = useState([]);
   const [ghostedJobs, setGhostedJobs] = useState([]);
-  const [user, setUser] = useState("calebwu");
   const location = useLocation();
+  const [user, setUser] = useState(location.username);
 
   // goodstuff: offer (4)
   // badstuff: ghosted (calculated on frontend), rejected (2)

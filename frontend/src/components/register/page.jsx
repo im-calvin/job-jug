@@ -3,8 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 function RegisterPage() {
   const location = useLocation();
-  const state = location.state;
-  const username = state.firstName + state.lastName;
+  const username = location.username;
   const navigate = useNavigate();
 
   const handleCopy = async () => {

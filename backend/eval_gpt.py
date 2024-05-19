@@ -25,7 +25,7 @@ def evaluate_email(email_txt, prev_jobs):
         
         {email_txt}
         
-        If the email is about an interview, offer, or rejection, check the pairs of company/position names below and copy them exactly in the response. Otherwise create a new pair. If you are not sure, leave it as 'Unknown'.
+        If the email is about an interview, offer, or rejection, check the pairs of company/position names below and if you think they are similar, then copy them exactly in the response. Otherwise create a new pair. If you are not sure, leave it as 'Unknown'.
         {prev_jobs_str}
         Return the result as a Python list.
 
