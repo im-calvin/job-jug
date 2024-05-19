@@ -45,6 +45,8 @@ function LoginPage() {
   }
   return (
     <>
+
+    <Navbar></Navbar>
       <div className="pt-32">
         <div className="w-3/4 border-2 rounded-lg px-20 border-gray-200 m-auto">
           <div className="mt-20"></div>
@@ -58,9 +60,9 @@ function LoginPage() {
                         </div>
                     </div>
 
-            <div className="flex flex-row mt-10 h-fit w-full gap-4 justify-between">
+            <div className="flex flex-row mt-10 h-fit gap-4 justify-between">
               <form onSubmit={handleSubmit}>
-                <div className="w-11/12">
+                <div className="h-fit">
                   <h3 className="mb-2">First Name</h3>
                   <input
                     name="first"
@@ -69,7 +71,7 @@ function LoginPage() {
                     onChange={(event) => setFirstName(event.target.value)}></input>     
                 </div>
 
-                <div className="w-11/12 h-fit">
+                <div className="h-fit">
                   <h3 className="mb-2"> Last Name </h3>
                   <input
                     name="last"
@@ -79,7 +81,7 @@ function LoginPage() {
                 </div>
                 <button
                   type="submit"
-                  className="border border-gray-300 rounded-md bg-gray-900 px-10 py-3">
+                  className="border mt-10 border-gray-300 rounded-md bg-gray-900 px-10 py-3">
                   {" "}
                   <h3 className="font-bold">Create Account</h3>
                 </button>
