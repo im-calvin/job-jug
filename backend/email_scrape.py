@@ -32,20 +32,24 @@ def get_emails_from_google():
     return messages
 
 
-def get_emails_from_mongo():
-    emails = db.get_collection("emails").find({})
+def is_new_email(email_id: str):
+    is_email = db.get_collection("emails").find_one({"email_id": email_id})
 
-    # for email in emails:
-    # print(email)
-    return emails
+    if is_email is None:
+        return True  # email is new and not in the database
+    else:
+        return False
 
 
-def fetch_new_emails():
+def fetch_new_emails(username: str):
     emails = get_emails_from_google()
-    mgemails = get_emails_from_mongo()
+    res = []
 
     for email in emails:
         message_id = email["id"]
+        if not is_new_email(message_id):
+            continue
+        # continue only if email is new
         email = service.users().messages().get(userId="me", id=message_id).execute()
         payload = email["payload"]
         headers = payload["headers"]
@@ -53,6 +57,23 @@ def fetch_new_emails():
         snippet = email["snippet"]
         parts = payload["parts"]
         body_text: str = ""
+        flag = True
+
+        for header in headers:
+            if header["name"] == "From":
+                from_email: str = header["value"]  # company
+            elif header["name"] == "To":
+                to_email: str = header["value"]
+                if not f"{username}@jobjug.co" == to_email:
+                    flag = False
+                email_name = to_email.split("@")[0]
+            elif header["name"] == "Date":
+                date: str = header["value"]  # printable time
+            elif header["name"] == "Subject":
+                subject: str = header["value"]
+
+        if not flag:
+            continue
 
         if payload["mimeType"] == "multipart/alternative":
             parts = payload["parts"]
@@ -69,29 +90,22 @@ def fetch_new_emails():
                     print(decoded_data)
                     body_text += decoded_data.decode("utf-8")
 
-        for header in headers:
-            if header["name"] == "From":
-                from_email: str = header["value"]
-                if not "jobjug.co" in from_email:
-                    print("Email not from jobjug.co")
-                    continue
-            elif header["name"] == "To":
-                to_email: str = header["value"]
-                email_name = to_email.split("@")[0]
-            elif header["name"] == "Date":
-                date: str = header["value"]  # printable time
-            elif header["name"] == "Subject":
-                subject: str = header["value"]
-
         email_json = {
+            "email_id": message_id,
             "from": from_email,
-            "to": to_email,
+            "to": email_name,
             "str_time": date,
             "subject": subject,
             "body": body_text,
             "snippet": snippet,
             "unix_time": time,
+            "new": True,
         }
+        res.append(email_json)
+
+        db.get_collection("emails").insert_one(email_json)
+
+    return res
 
 
 fetch_new_emails()
