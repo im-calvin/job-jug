@@ -66,36 +66,7 @@ function LoginPage() {
                     name="first"
                     className="h-16 border border-gray-300 rounded-md px-4 pt-5 pb-1"
                     value={firstName}
-                    onChange={(event) => setFirstName(event.target.value)}></input>
-                
-                    <div className='flex flex-row h-1/2 w-full gap-4 justify-between'>
-                        <form action={login}>
-                            <div className=''>
-                                <h3 className='mb-2'>First Name</h3>
-                                <input name="first" className='h-16 border border-gray-300 rounded-md px-4 pt-5 pb-1'></input>
-                            </div>
-
-                            <div className=''>
-                                <h3 className='mb-2'> Last Name </h3>
-                                <input name="last" className='h-16 border border-gray-300 rounded-md px-4 pt-5 pb-1'></input>
-                            </div>
-                            <button type="submit">Next</button>
-                        </form>  
-                    <img className='w-2/5 h-2/5 object-contain absolute right-48 bottom-[13%]' src={mail}></img>
-
-                    </div>
-
-                    <div className='flex flex-col justify-bottom'>
-                        <div className='flex flex-row justify-between'>
-                            {/* <h3 className='flex flex-col justify-end'>Log in instead</h3> */}
-
-                            <div className=''>
-                            <button className='border border-gray-300 rounded-md bg-gray-900 px-10 py-3'> <h3 className='font-bold'>Create Account</h3></button>
-                            </div>
-                        </div>
-                    </div>
-
-                
+                    onChange={(event) => setFirstName(event.target.value)}></input>     
                 </div>
 
                 <div className="w-11/12 h-fit">
