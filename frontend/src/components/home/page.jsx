@@ -12,10 +12,9 @@ function HomePage() {
   const [awaiting, setAwaiting] = useState([]);
   const [ghostedJobs, setGhostedJobs] = useState([]);
   const location = useLocation(); // do we need this?
-//   const [user, setUser] = useState(location.username);
+  //   const [user, setUser] = useState(location.username);
   const [user, setUser] = useState("test");
   const [name, setName] = useState(["test", "user"]);
-
 
   // goodstuff: offer (4)
   // badstuff: ghosted (calculated on frontend), rejected (2)
@@ -103,19 +102,21 @@ function HomePage() {
 
       <div className="flex flex-row justify-center h-fit w-full pt-32">
         <div className="w-4/5 h-full m-auto">
-          <h3 className="text-2xl">Welcome back, {name[0]} {name[1]}!</h3>
+          <h3 className="text-2xl">
+            Welcome back, {name[0]} {name[1]}!
+          </h3>
           <h1 className="text-4xl">Summer 2024 Set</h1>
           <span class="flex flex-row justify-between">
             <button
-                className="mt-4 border border-gray-300 rounded-md bg-gray-900 px-10 py-3"
-                onClick={fetchData}>
-                <IoIosRefresh />
+              className="mt-4 border border-gray-300 rounded-md bg-gray-900 px-10 py-3"
+              onClick={fetchData}>
+              <IoIosRefresh />
             </button>
-                <Link to="/">
-                    <button className="mt-4 border border-gray-300 text-white rounded-md bg-gray-900 px-10 py-3">
-                        Log Out
-                    </button>
-                </Link>
+            <Link to="/">
+              <button className="mt-4 border border-gray-300 text-white rounded-md bg-gray-900 px-10 py-3">
+                Log Out
+              </button>
+            </Link>
           </span>
         </div>
       </div>
