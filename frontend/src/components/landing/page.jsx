@@ -48,6 +48,7 @@ function LoginPage() {
 
     <Navbar></Navbar>
       <div className="pt-32">
+        <img className='size-[30vw] absolute object-contain right-[14%] bottom-[14%]'src ={mail}></img>
         <div className="w-3/4 border-2 rounded-lg px-20 border-gray-200 m-auto">
           <div className="mt-20"></div>
 
@@ -60,13 +61,13 @@ function LoginPage() {
                         </div>
                     </div>
 
-            <div className="flex flex-row mt-10 h-fit gap-4 justify-between">
+            <div className="mt-10 h-fit gap-4 justify-between">
               <form onSubmit={handleSubmit}>
                 <div className="h-fit">
                   <h3 className="mb-2">First Name</h3>
                   <input
                     name="first"
-                    className="h-16 border border-gray-300 rounded-md px-4 pt-5 pb-1"
+                    className="h-16 border w-1/2 border-gray-300 rounded-md px-4 pt-5 pb-1"
                     value={firstName}
                     onChange={(event) => setFirstName(event.target.value)}></input>     
                 </div>
@@ -75,7 +76,7 @@ function LoginPage() {
                   <h3 className="mb-2"> Last Name </h3>
                   <input
                     name="last"
-                    className="h-16 border border-gray-300 rounded-md px-4 pt-5 pb-1"
+                    className="h-16 border w-1/2 border border-gray-300 rounded-md px-4 pt-5 pb-1"
                     value={lastName}
                     onChange={(event) => setLastName(event.target.value)}></input>
                 </div>
@@ -83,9 +84,10 @@ function LoginPage() {
                   type="submit"
                   className="border mt-10 border-gray-300 rounded-md bg-gray-900 px-10 py-3">
                   {" "}
-                  <h3 className="font-bold">Create Account</h3>
+                  <h3 className="font-bold ">Create Account</h3>
                 </button>
               </form>
+              <div className='mb-[10%]'></div>
             </div>
           </div>
         </div>
