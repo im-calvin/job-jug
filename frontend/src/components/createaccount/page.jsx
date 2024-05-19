@@ -1,13 +1,17 @@
 import React from 'react';
+import Navbar from '../navbar/page';
 
 function CreateAccountPage() {  
+
     return (
         <>
+            <Navbar></Navbar>
+        
             <div className='pt-32'>
             <div className='w-3/4 border-2 rounded-lg px-20 border-gray-200 m-auto'>  
                 <div className='mt-20'></div>
 
-                <div className='w-1/2 h-fit grid grid-rows-3'>
+                <div className='w-4/6 h-fit grid grid-rows-3'>
                     <div className='container mt-20'>
                     <h1 className='text-6xl'>Create an account</h1>
                     <h3> Already have an account? Log in</h3>
