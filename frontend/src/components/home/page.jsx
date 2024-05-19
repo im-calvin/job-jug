@@ -10,7 +10,7 @@ function HomePage() {
   const [badStuff, setBadStuff] = useState([]);
   const [awaiting, setAwaiting] = useState([]);
   const [ghostedJobs, setGhostedJobs] = useState([]);
-  const [dataCount, setDataCount] = useState([0, 0, 0]);
+  const [dataCount, setDataCount] = useState([0, 0, 0, 0, 0]);
   const [user, setUser] = useState("calebwu");
 
   // goodstuff: offer (4)
@@ -18,11 +18,15 @@ function HomePage() {
   // awaiting: interviewing (3), received (1), waitlisted (5)
 
   const fetchData = async () => {
-    const response = await fetch(`http://localhost:5000/api/emails?username=${user}`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch data");
-    }
-    const data = await response.json();
+    // mongodb fetch
+    // const response = await fetch(`http://localhost:5000/api/emails?username=${user}`);
+    // if (!response.ok) {
+    //   throw new Error("Failed to fetch data");
+    // }
+    // const data = await response.json();
+
+    // local mock data
+    const data = mockData;
     console.log(data);
 
     // filtering fetched data into three main columns
@@ -58,21 +62,16 @@ function HomePage() {
   // 3. interview invitation
   // 4. position offered
   // 5. position waitlisted
-  const countData = (data) => {
-    const reject = data.filter((job) => job.status === 2).length;
-    const interview = data.filter((job) => job.status === 3).length;
-    const offer = data.filter((job) => job.status === 4).length;
-    const waitlist = data.filter((job) => job.status === 5).length;
-    const ghosted = ghostedJobs.length;
-
-    return [reject, interview, offer, waitlist, ghosted];
-  };
 
   useEffect(() => {
-    // TO DO: implement data fetching from b/e
-    const tempCount = fetchData();
-    console.log("Data Count: ", tempCount);
-    setDataCount(tempCount);
+    async function setInitialData() {
+        // TO DO: implement data fetching from b/e
+      const tempCount = await fetchData();
+      console.log("Data Count: ", tempCount);
+      setDataCount(tempCount);
+    }
+
+    setInitialData();
   }, []);
 
   // useEffect(() => {
