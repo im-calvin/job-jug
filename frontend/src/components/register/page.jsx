@@ -1,6 +1,6 @@
 import React from 'react';
 
-function LoginPage() {  
+function RegisterPage({data}) {  
     return (
         <>
             <div className='pt-32'>
@@ -36,4 +36,4 @@ function LoginPage() {
     );
 };
 
-export default LoginPage;
+export default RegisterPage;

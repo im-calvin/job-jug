@@ -1,33 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import mockData from '../../data/mockjobs';
 import Dashboard from '../dashboard/page';
 import Searchbar from '../searchbar/page';
 import Navbar from '../navbar/page';
-import Login from '../login/page';
+import Login from '../register/page';
 
-function HomePage() {
+function HomePage({data}) {
   const [goodStuff, setGoodStuff] = useState([]);
   const [badStuff, setBadStuff] = useState([]);
   const [awaiting, setAwaiting] = useState([]);
   const [ghostedJobs, setGhostedJobs] = useState([]);
-  const [dataCount, setDataCount] = useState([0, 0, 0, 0, 0]);
   const [user, setUser] = useState("calebwu");
 
   // goodstuff: offer (4)
   // badstuff: ghosted (calculated on frontend), rejected (2)
   // awaiting: interviewing (3), received (1), waitlisted (5)
 
-  const fetchData = async () => {
-    // mongodb fetch
-    // const response = await fetch(`http://localhost:5000/api/emails?username=${user}`);
-    // if (!response.ok) {
-    //   throw new Error("Failed to fetch data");
-    // }
-    // const data = await response.json();
-
-    // local mock data
-    const data = mockData;
-    console.log(data);
+  const fetchData = () => {
 
     // filtering fetched data into three main columns
     const tempGood = data.filter((job) => job.status === 4);
