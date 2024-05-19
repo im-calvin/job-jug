@@ -11,8 +11,11 @@ function HomePage() {
   const [badStuff, setBadStuff] = useState([]);
   const [awaiting, setAwaiting] = useState([]);
   const [ghostedJobs, setGhostedJobs] = useState([]);
-  const location = useLocation();
-  const [user, setUser] = useState(location.username);
+  const location = useLocation(); // do we need this?
+//   const [user, setUser] = useState(location.username);
+  const [user, setUser] = useState("test");
+  const [name, setName] = useState(["test", "user"]);
+
 
   // goodstuff: offer (4)
   // badstuff: ghosted (calculated on frontend), rejected (2)
@@ -70,6 +73,13 @@ function HomePage() {
   // 5. position waitlisted
 
   useEffect(() => {
+    const storedUser = JSON.parse(sessionStorage.getItem("user"));
+    if (storedUser) {
+      const tempUser = storedUser[2];
+      setUser(tempUser);
+      const tempName = [storedUser[0], storedUser[1]];
+      setName(tempName);
+    }
     async function setInitialData() {
       // TO DO: implement data fetching from b/e
       const tempCount = filterData(location.state);
@@ -93,7 +103,7 @@ function HomePage() {
 
       <div className="flex flex-row justify-center h-fit w-full pt-32">
         <div className="w-4/5 h-full m-auto">
-          <h3 className="text-2xl">{user}!</h3>
+          <h3 className="text-2xl">Welcome back, {name[0]} {name[1]}!</h3>
           <h1 className="text-4xl">Summer 2024 Set</h1>
           <button
             className="border border-gray-300 rounded-md bg-gray-900 px-10 py-3"

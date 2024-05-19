@@ -16,21 +16,25 @@ function LoginPage() {
       console.log("Incoming User: ", firstName, lastName);
 
       const user = firstName.toLowerCase().trim() + lastName.toLowerCase().trim();
-      const response = await fetch(`http://localhost:5000/api/emails?username=${user}`);
+    //   const response = await fetch(`http://localhost:5000/api/emails?username=${user}`);
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-      const data = await response.json();
+    //   if (!response.ok) {
+    //     throw new Error("Failed to fetch data");
+    //   }
+    //   const data = await response.json();
+      const data = mockData;
       console.log(data);
+      const username = firstName + lastName;
 
       if (data.length === 0) {
         // redirect user to email address screen
-        const username = firstName + lastName;
         navigate("/register", {
           username,
         });
       } else {
+        // Storing user info in local storage
+        sessionStorage.setItem("user", JSON.stringify([firstName, lastName, username]));
+
         // redirect user to main dashboard with data
         navigate("/home", { state: data });
       }
