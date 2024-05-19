@@ -5,7 +5,7 @@ import logo from '../../assets/logo.png'
 
 function RegisterPage() {
   const location = useLocation();
-  const username = location.username;
+  const username = location.state;
   const navigate = useNavigate();
 
   const handleCopy = async () => {

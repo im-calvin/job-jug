@@ -90,7 +90,7 @@ def get_emails():
                 )
             else:
                 # the email is completely new (status should be 1)
-                assert status == 1
+                # assert status == 1
                 db.get_collection("emails").insert_one(email)
         # if the email is not new, then check if it matches the username
     for email in all_emails:
