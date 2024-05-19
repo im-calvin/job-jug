@@ -1,0 +1,1 @@
+run watchdog_main.py not main.py

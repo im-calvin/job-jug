@@ -5,7 +5,6 @@ import os
 
 from datetime import datetime
 #datetime.now()
-import random
 
 load_dotenv()
 
@@ -20,7 +19,7 @@ def get_database():
    client = MongoClient(CONNECTION_STRING)
 
    # Create the database for our example (we will use the same database throughout the tutorial
-   return client['studyspaces']
+   return client['users']
   
 # This is added so that many files can reuse the function get_database()
 if __name__ == "__main__":   
@@ -28,55 +27,52 @@ if __name__ == "__main__":
    # Get the database
    dbname = get_database()
 
+def in_database(dbname, username, position_name, company_name):
+    collection_name = dbname[username]
+    x = collection_name.find_one({"position": position_name, "company":company_name})
+    if x == None:
+        return False
+    else:
+        return True
 
-def add_database(table_id, location, is_full):
+def add_database(dbname, username, status, position_name, company_name):
     dbname = get_database()
-    collection_name = dbname["tables"]
+    collection_name = dbname[username]
 
     #generate some shit
     now = datetime.now()
-    random_battery = random.randint(10, 99)/100
-    random_pop = random.randint(10, 99)/100
-    random_totalusers = random.randint(0, 99)
         
-    table_0 = {
+    application = {
         #"_id" : "U1IT00002",
-        "last_updated" : now,
-        "last_occupied" : now,
-        "table_id" : table_id,
-        "location" : location,
-        "battery" : random_battery,
-        "popularity" : random_pop,
-        "total_users" : random_totalusers,
-        "is_full" : is_full
+        "class" : status,
+        "position" : position_name,
+        "company" : company_name,
+        "date" : now,
     }
 
-    collection_name.insert_one(table_0)
+    collection_name.insert_one(application)
     #collection_name.insert_many([table_1,table_2])
     
-def edit_database(table_id, location, is_full):
-    dbname = get_database()
-    collection_name = dbname["tables"]
+def update_database(dbname, username, status, position_name, company_name):
+    #dbname = get_database()
+    collection_name = dbname[username]
+   
+    x = collection_name.find_one({"position": position_name, "company":company_name})
+    last_status = x["status"]
+    
+    if status != last_status:
+        now = datetime.now()
 
-    #generate some shit
-    now = datetime.now()
+        my_query = {"position": position_name, "company":company_name}
     
-    x = collection_name.find_one({"table_id": table_id, "location":location})
-    last_occupied = x["last_occupied"]
-    
-    if is_full:
-        last_occupied = now
-    
-    my_query = {"table_id": table_id, "location":location}
-    
-    new_values = {
-        "$set": {
-            "is_full": is_full,  # New value for 'is_full'
-            "last_updated" : now,
-            "last_occupied": last_occupied,  # New value for 'last_occupied'
+        new_values = {
+            "$set": {
+                "status": status,  # New value for 'is_full'
+                "date" : now
+            }
         }
-    }
-    
-    collection_name.update_one(my_query, new_values)
-    
-        
+
+        collection_name.update_one(my_query, new_values)
+
+
+dbname = get_database()
