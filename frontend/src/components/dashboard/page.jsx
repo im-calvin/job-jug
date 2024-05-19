@@ -28,8 +28,8 @@ function Dashboard({goodStuff, badStuff, awaiting}) {
                                         <span className="h-full w-11/12 bg-white"> 
                                             <div className='flex flex-row px-3 py-2'>
                                                     <div className='container flex flex-col justify-center'>
-                                                        <div><h1>{job.company}</h1></div>
-                                                        <div><h5>{job.title}</h5></div>
+                                                        <div><h1>{job.title}</h1></div>
+                                                        <div><h5>{job.company}</h5></div>
                                                     </div>
                                             </div>
                                         </span>
@@ -49,8 +49,8 @@ function Dashboard({goodStuff, badStuff, awaiting}) {
                                             <div className='flex flex-row px-3 py-2'>
     
                                                     <div className='container flex flex-col justify-center'>
-                                                        <div><h1>{job.company}</h1></div>
-                                                        <div><h5>{job.title}</h5></div>
+                                                        <div><h1>{job.title}</h1></div>
+                                                        <div><h5>{job.company}</h5></div>
                                                     </div>
                                             </div>
                                         </span>
@@ -69,8 +69,8 @@ function Dashboard({goodStuff, badStuff, awaiting}) {
                                         <span className="h-full w-11/12 bg-white"> 
                                             <div className='flex flex-row px-3 py-2'>
                                                     <div className='container flex flex-col justify-center'>
-                                                        <div><h1>{job.company}</h1></div>
-                                                        <div><h5>{job.title}</h5></div>
+                                                        <div><h1>{job.title}</h1></div>
+                                                        <div><h5>{job.company}</h5></div>
                                                     </div>
                                             </div>
                                         </span>
